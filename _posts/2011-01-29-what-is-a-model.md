@@ -294,19 +294,21 @@ _Validate data before you set or save it_
         },
         initialize: function(){
             alert("Welcome to this world");
-            this.bind("error", function(model, error){
+			// The invalid event is used to handle validation errors on the client-side
+            this.bind("invalid", function(model, error){
                 // We have received an error, log it, alert it or forget it :)
                 alert( error );
             });
         }
     });
     
+	// By default, Backbone will only validate models on save, not set. We can override that by passing in validate: true
     var person = new Person;
-    person.set({ name: "Mary Poppins", age: -1 }); 
+    person.set({ name: "Mary Poppins", age: -1 }, {validate: true}); 
     // Will trigger an alert outputting the error
     
     var person = new Person;
-    person.set({ name: "Dr Manhatten", age: -1 });
+    person.set({ name: "Dr Manhatten", age: -1 }, {validate: true});
     // God have mercy on our souls
     
 {% endhighlight %}
